@@ -1,0 +1,10 @@
+:root {
+    --cardWidth: 200px;
+    --cardHeight: 50px;
+}
+.card {
+    height: var(--cardHeight);
+    width: var(--cardWidth);
+    border-style: solid;
+    border-color: rgb(238, 233, 233);
+}
