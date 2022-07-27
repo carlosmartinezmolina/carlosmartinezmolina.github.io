@@ -14,12 +14,41 @@ import Button from "../Button/Button.component";
 const Task = () => {
   const [state, setState] = useState({
     writeTask: false,
+    writeInput: true,
+    buttonAcceptName: "Ok",
   });
 
   const writeClick = (event) => {
+    if (!state.writeTask) {
+      setState({
+        ...state,
+        writeInput: !state.writeInput,
+        writeTask: !state.writeTask,
+      });
+    }
+  };
+
+  const buttonClick = (event) => {
     setState({
-      writeTask: !state.writeTask,
+      ...state,
+      writeInput: true,
+      writeTask: false,
     });
+  };
+
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    if (event.target.value) {
+      setState({
+        ...state,
+        buttonAcceptName: "Add",
+      });
+    } else {
+      setState({
+        ...state,
+        buttonAcceptName: "Ok",
+      });
+    }
   };
 
   const InputObject = (
@@ -27,11 +56,12 @@ const Task = () => {
       <div className="input">
         <PlusSquare color="blue" onClick={writeClick} />
         <input
+          className="task_input"
           style={{
             border: "0",
           }}
-          //disabled={true}
-          onClick={writeClick}
+          disabled={state.writeInput}
+          onChange={handleChange}
           type="text"
           placeholder="Type to add new task"
         />
@@ -82,10 +112,14 @@ const Task = () => {
         <Button
           title={"Cancel"}
           marginRight={"5%"}
-          writeClick={writeClick}
+          buttonClick={buttonClick}
           boostrapClass={"btn btn-secondary"}
         />
-        <Button title={"Ok"} boostrapClass={"btn btn-primary"} />
+        <Button
+          buttonClick={buttonClick}
+          title={state.buttonAcceptName}
+          boostrapClass={"btn btn-primary"}
+        />
       </div>
     </div>
   );

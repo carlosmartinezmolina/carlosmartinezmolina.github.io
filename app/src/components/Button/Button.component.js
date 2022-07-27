@@ -9,14 +9,11 @@ const Button = ({
   marginLeft = "0%",
   marginRight = "0%",
   disabled,
-  writeClick,
+  buttonClick,
   boostrapClass,
   opacity = "1",
+  id = null,
 }) => {
-  //   let rootElement = document.documentElement;
-  //   rootElement.style.setProperty("--buttonWidth", width);
-  //   rootElement.style.setProperty("--buttonBackgroundColor", backgroundColor);
-  console.log(ObjectName);
   return (
     <button
       type="button"
@@ -32,7 +29,7 @@ const Button = ({
         opacity: opacity,
       }}
       disabled={disabled}
-      onClick={writeClick}
+      onClick={title != "Add" ? buttonClick : null}
     >
       {ObjectName && (
         <ObjectName

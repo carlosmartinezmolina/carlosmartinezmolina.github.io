@@ -15,3 +15,7 @@
 .image {
     opacity: 0.6;
 }
+
+.task_input:focus-visible {
+    outline: white;
+  }
