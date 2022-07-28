@@ -13,8 +13,10 @@ import {
 import Card from "../Card/Card.component";
 import Button from "../Button/Button.component";
 import CheckBoxList from "../CheckBoxList/CheckBoxList.component";
+import ScreenSizeDetector from "screen-size-detector";
 
 const Task = () => {
+  const size = new ScreenSizeDetector();
   const [state, setState] = useState({
     writeTask: false,
     writeInput: true,
@@ -24,6 +26,8 @@ const Task = () => {
     textColor: "blue",
     textList: [],
     currentText: "",
+    displayWidth: size.width,
+    imageSize: size.width >= 1230 ? "2%" : "8%",
   });
 
   const writeClick = (event) => {
@@ -85,8 +89,8 @@ const Task = () => {
   };
 
   const InputObject = (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div className="input">
+    <div className="d-flex flex-wrap justify-content-between">
+      <div className="my-auto ms-2 mt-1 mb-2">
         <PlusSquare color="blue" onClick={writeClick} />
         <input
           id="InputId"
@@ -102,11 +106,11 @@ const Task = () => {
       </div>
       <img
         src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
-        className="rounded-circle"
+        className="rounded-circle my-auto ms-2 mt-1 mb-2"
         style={{
-          width: "2%",
-          height: "2%",
-          margin: "0.5%",
+          width: state.imageSize,
+          height: state.imageSize,
+          // margin: "0.5%",
           opacity: state.buttonOpacity,
         }}
         alt="Avatar"
@@ -115,59 +119,109 @@ const Task = () => {
   );
 
   const ButtonsObject = (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <div className="buttons">
+    <div
+      className={
+        state.displayWidth >= 1230
+          ? "d-flex flex-wrap justify-content-between"
+          : "d-flex flex-wrap justify-content-between"
+      }
+    >
+      <div
+        className={
+          state.displayWidth >= 1230
+            ? "d-flex my-auto ms-2 mt-1 mb-2"
+            : "d-flex my-auto ms-1 mt-1 mb-1"
+        }
+      >
         <Button
           ObjectName={Maximize2}
-          title={"Open"}
+          title={state.displayWidth >= 1230 ? "Open" : ""}
           disabled={state.buttonDisabledProp}
           opacity={state.buttonOpacity}
           featherColor="black"
           fontWeight="550"
           backgroundColor={"#adb5bd"}
+          boostrapClass={"btn-xs d-flex"}
         />
         <Button
           ObjectName={Calendar}
-          title={"Today"}
-          marginLeft={"8%"}
+          title={state.displayWidth >= 1230 ? "Today" : ""}
           disabled={state.buttonDisabledProp}
           opacity={state.buttonOpacity}
+          boostrapClass={
+            state.displayWidth >= 1230
+              ? "ms-5 btn-xs d-flex"
+              : "ms-1 btn-xs d-flex"
+          }
         />
         <Button
           ObjectName={Unlock}
-          title={"Public"}
-          marginLeft={"2%"}
+          title={state.displayWidth >= 1230 ? "Public" : ""}
           disabled={state.buttonDisabledProp}
           opacity={state.buttonOpacity}
+          boostrapClass={
+            state.displayWidth >= 1230
+              ? "ms-2 btn-xs d-flex"
+              : "ms-1 btn-xs d-flex"
+          }
         />
         <Button
           ObjectName={Sun}
-          title={"Normal"}
-          marginLeft={"2%"}
+          title={state.displayWidth >= 1230 ? "Normal" : ""}
           disabled={state.buttonDisabledProp}
           opacity={state.buttonOpacity}
+          boostrapClass={
+            state.displayWidth >= 1230
+              ? "ms-2 btn-xs d-flex"
+              : "ms-1 btn-xs d-flex"
+          }
         />
         <Button
           ObjectName={Disc}
-          title={"Estimation"}
-          marginLeft={"2%"}
+          title={state.displayWidth >= 1230 ? "Estimation" : ""}
           disabled={state.buttonDisabledProp}
           opacity={state.buttonOpacity}
+          boostrapClass={
+            state.displayWidth >= 1230
+              ? "ms-2 btn-xs d-flex"
+              : "ms-1 btn-xs d-flex"
+          }
         />
+        {state.displayWidth < 1230 && (
+          <Button
+            ObjectName={Disc}
+            title={state.displayWidth >= 1230 ? "Cancel" : ""}
+            buttonClick={buttonClick}
+            boostrapClass={"ms-1 btn-xs d-flex"}
+            disabled={state.buttonDisabledProp}
+            opacity={state.buttonOpacity}
+          />
+        )}
       </div>
-      <div className="buttons">
+      <div
+        className={
+          state.displayWidth >= 1230
+            ? "d-flex my-auto ms-2 mt-1 mb-2"
+            : "d-flex my-auto ms-2 mt-1 mb-2"
+        }
+      >
+        {state.displayWidth >= 1230 && (
+          <Button
+            title={state.displayWidth >= 1230 ? "Cancel" : ""}
+            buttonClick={buttonClick}
+            boostrapClass={"d-flex btn-xs btn btn-secondary"}
+            featherColor="white"
+          />
+        )}
         <Button
-          title={"Cancel"}
-          marginRight={"5%"}
           buttonClick={buttonClick}
-          boostrapClass={"btn btn-secondary"}
-          featherColor="white"
-        />
-        <Button
-          buttonClick={buttonClick}
-          title={state.buttonAcceptName}
+          title={state.displayWidth >= 1230 ? state.buttonAcceptName : ""}
           buttonAdd={buttonAdd}
-          boostrapClass={"btn btn-primary"}
+          boostrapClass={
+            state.displayWidth >= 1230
+              ? "ms-2 me-2 d-flex btn-xs btn btn-primary"
+              : "ms-1 me-1 d-flex btn-xs btn btn-primary"
+          }
           featherColor="white"
         />
       </div>
@@ -177,7 +231,7 @@ const Task = () => {
   const CheckBoxListObject = <CheckBoxList textList={state.textList} />;
 
   return (
-    <div className="task">
+    <div className="ms-2 mt-2">
       <Card height={"auto"} width={"auto"} Object={InputObject} />
       {state.writeTask && (
         <Card

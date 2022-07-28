@@ -1,5 +1,4 @@
 import React from "react";
-import "./Button.component.scss";
 
 const Button = ({
   ObjectName,
@@ -21,12 +20,12 @@ const Button = ({
       type="button"
       className={boostrapClass}
       style={{
-        display: "flex",
+        // display: "flex",
         backgroundColor: backgroundColor ? backgroundColor : null,
-        width: width,
+        // width: width,
         borderRadius: "6px",
-        marginLeft: marginLeft,
-        marginRight: marginRight,
+        // marginLeft: marginLeft,
+        // marginRight: marginRight,
         justifyContent: "space-between",
         opacity: opacity,
         color: featherColor,
