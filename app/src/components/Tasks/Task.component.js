@@ -7,8 +7,8 @@ import {
   Maximize2,
   Sun,
   Disc,
-  Bluetooth,
-  ChevronDown,
+  Trash2,
+  X,
 } from "react-feather";
 import Card from "../Card/Card.component";
 import Button from "../Button/Button.component";
@@ -142,6 +142,7 @@ const Task = () => {
           fontWeight="550"
           backgroundColor={"#adb5bd"}
           boostrapClass={"btn-xs d-flex"}
+          featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
         />
         <Button
           ObjectName={Calendar}
@@ -153,6 +154,7 @@ const Task = () => {
               ? "ms-5 btn-xs d-flex"
               : "ms-1 btn-xs d-flex"
           }
+          featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
         />
         <Button
           ObjectName={Unlock}
@@ -164,6 +166,7 @@ const Task = () => {
               ? "ms-2 btn-xs d-flex"
               : "ms-1 btn-xs d-flex"
           }
+          featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
         />
         <Button
           ObjectName={Sun}
@@ -175,6 +178,7 @@ const Task = () => {
               ? "ms-2 btn-xs d-flex"
               : "ms-1 btn-xs d-flex"
           }
+          featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
         />
         <Button
           ObjectName={Disc}
@@ -186,15 +190,17 @@ const Task = () => {
               ? "ms-2 btn-xs d-flex"
               : "ms-1 btn-xs d-flex"
           }
+          featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
         />
         {state.displayWidth < 1230 && (
           <Button
-            ObjectName={Disc}
+            ObjectName={Trash2}
             title={state.displayWidth >= 1230 ? "Cancel" : ""}
             buttonClick={buttonClick}
             boostrapClass={"ms-1 btn-xs d-flex"}
             disabled={state.buttonDisabledProp}
             opacity={state.buttonOpacity}
+            featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
           />
         )}
       </div>
@@ -214,15 +220,18 @@ const Task = () => {
           />
         )}
         <Button
+          ObjectName={state.displayWidth >= 1230 ? null : X}
           buttonClick={buttonClick}
           title={state.displayWidth >= 1230 ? state.buttonAcceptName : ""}
           buttonAdd={buttonAdd}
           boostrapClass={
             state.displayWidth >= 1230
               ? "ms-2 me-2 d-flex btn-xs btn btn-primary"
-              : "ms-1 me-1 d-flex btn-xs btn btn-primary"
+              : "ms-1 me-1 d-flex btn-xs"
           }
           featherColor="white"
+          backgroundColor={state.displayWidth >= 1230 ? "" : "rgb(12, 98, 225)"}
+          featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
         />
       </div>
     </div>

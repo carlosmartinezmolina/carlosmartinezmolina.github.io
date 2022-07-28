@@ -5,9 +5,7 @@ const Button = ({
   title,
   backgroundColor,
   featherColor = "gray",
-  width,
-  marginLeft = "0%",
-  marginRight = "0%",
+  featherWidth = "20px",
   disabled,
   buttonClick,
   boostrapClass,
@@ -20,12 +18,8 @@ const Button = ({
       type="button"
       className={boostrapClass}
       style={{
-        // display: "flex",
         backgroundColor: backgroundColor ? backgroundColor : null,
-        // width: width,
         borderRadius: "6px",
-        // marginLeft: marginLeft,
-        // marginRight: marginRight,
         justifyContent: "space-between",
         opacity: opacity,
         color: featherColor,
@@ -37,12 +31,10 @@ const Button = ({
     >
       {ObjectName && (
         <ObjectName
-          style={{
-            marginRight: "5px",
-            marginLeft: "5px",
-            display: "flex",
-          }}
+          className={"ms-1 me-1 mt-1 mb-1"}
+          width={featherWidth}
           color={featherColor}
+          style={{ display: "flex" }}
         />
       )}
       {title}
