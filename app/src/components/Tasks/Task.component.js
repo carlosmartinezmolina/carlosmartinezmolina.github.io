@@ -107,7 +107,7 @@ const Task = () => {
       writeTask: false,
       currentText: "",
       buttonOpacity: "0.6",
-      buttonAcceptName: "Ok",
+      buttonAcceptName: "Add",
       buttonDisabledProp: false,
       featherAdd: Save,
     });
