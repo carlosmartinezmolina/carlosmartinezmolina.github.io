@@ -1,4 +1,16 @@
 import React from "react";
+import {
+  PlusSquare,
+  Calendar,
+  Unlock,
+  Maximize2,
+  Sun,
+  Disc,
+  Trash2,
+  X,
+  Save,
+  Plus,
+} from "react-feather";
 
 const Button = ({
   ObjectName,
@@ -12,12 +24,22 @@ const Button = ({
   opacity = "1",
   fontWeight = "550",
   buttonAdd,
+  border = "",
 }) => {
+  const resolveCall = () => {
+    if (title == "Add") return buttonAdd;
+    else if (title != "") return buttonClick;
+    else if (title == "") {
+      if (ObjectName == X || ObjectName == Trash2) return buttonClick;
+      return buttonAdd;
+    }
+  };
   return (
     <button
       type="button"
       className={boostrapClass}
       style={{
+        border: border,
         backgroundColor: backgroundColor ? backgroundColor : null,
         borderRadius: "6px",
         justifyContent: "space-between",
@@ -27,7 +49,7 @@ const Button = ({
         fontStyle: "sans-serif",
       }}
       disabled={disabled}
-      onClick={title != "Add" ? buttonClick : buttonAdd}
+      onClick={resolveCall()}
     >
       {ObjectName && (
         <ObjectName

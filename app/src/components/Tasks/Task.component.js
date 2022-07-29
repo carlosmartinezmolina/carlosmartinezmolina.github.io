@@ -9,6 +9,8 @@ import {
   Disc,
   Trash2,
   X,
+  Save,
+  Plus,
 } from "react-feather";
 import Card from "../Card/Card.component";
 import Button from "../Button/Button.component";
@@ -28,6 +30,7 @@ const Task = () => {
     currentText: "",
     displayWidth: size.width,
     imageSize: size.width >= 1230 ? "2%" : "8%",
+    featherAdd: X,
   });
 
   const writeClick = (event) => {
@@ -48,6 +51,9 @@ const Task = () => {
       writeInput: true,
       writeTask: false,
       buttonOpacity: "0.6",
+      buttonAcceptName: "Ok",
+      buttonDisabledProp: true,
+      featherAdd: X,
     });
   };
 
@@ -64,16 +70,18 @@ const Task = () => {
       currentText: "",
       buttonOpacity: "0.6",
       buttonAcceptName: "Ok",
+      buttonDisabledProp: true,
+      featherAdd: X,
     });
   };
 
   const handleChange = (event) => {
-    console.log(event.target.value);
     if (event.target.value) {
       setState({
         ...state,
         currentText: event.target.value,
         buttonAcceptName: "Add",
+        featherAdd: Plus,
         buttonDisabledProp: false,
         buttonOpacity: "0.8",
       });
@@ -84,8 +92,25 @@ const Task = () => {
         buttonAcceptName: "Ok",
         buttonDisabledProp: true,
         buttonOpacity: "0.6",
+        featherAdd: X,
       });
     }
+  };
+
+  const modifyText = (event, listIndex) => {
+    var temp = state.textList;
+    temp[listIndex] = event.target.value;
+    setState({
+      ...state,
+      textList: temp,
+      writeInput: true,
+      writeTask: false,
+      currentText: "",
+      buttonOpacity: "0.6",
+      buttonAcceptName: "Ok",
+      buttonDisabledProp: false,
+      featherAdd: Save,
+    });
   };
 
   const InputObject = (
@@ -143,6 +168,7 @@ const Task = () => {
           backgroundColor={"#adb5bd"}
           boostrapClass={"btn-xs d-flex"}
           featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
+          border={state.displayWidth >= 1230 ? "" : "none"}
         />
         <Button
           ObjectName={Calendar}
@@ -155,6 +181,7 @@ const Task = () => {
               : "ms-1 btn-xs d-flex"
           }
           featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
+          border={state.displayWidth >= 1230 ? "" : "none"}
         />
         <Button
           ObjectName={Unlock}
@@ -167,6 +194,7 @@ const Task = () => {
               : "ms-1 btn-xs d-flex"
           }
           featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
+          border={state.displayWidth >= 1230 ? "" : "none"}
         />
         <Button
           ObjectName={Sun}
@@ -179,6 +207,7 @@ const Task = () => {
               : "ms-1 btn-xs d-flex"
           }
           featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
+          border={state.displayWidth >= 1230 ? "" : "none"}
         />
         <Button
           ObjectName={Disc}
@@ -191,6 +220,7 @@ const Task = () => {
               : "ms-1 btn-xs d-flex"
           }
           featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
+          border={state.displayWidth >= 1230 ? "" : "none"}
         />
         {state.displayWidth < 1230 && (
           <Button
@@ -201,6 +231,7 @@ const Task = () => {
             disabled={state.buttonDisabledProp}
             opacity={state.buttonOpacity}
             featherWidth={state.displayWidth >= 1230 ? "30px" : "20px"}
+            border={state.displayWidth >= 1230 ? "" : "none"}
           />
         )}
       </div>
@@ -220,7 +251,7 @@ const Task = () => {
           />
         )}
         <Button
-          ObjectName={state.displayWidth >= 1230 ? null : X}
+          ObjectName={state.displayWidth >= 1230 ? null : state.featherAdd}
           buttonClick={buttonClick}
           title={state.displayWidth >= 1230 ? state.buttonAcceptName : ""}
           buttonAdd={buttonAdd}
@@ -237,7 +268,14 @@ const Task = () => {
     </div>
   );
 
-  const CheckBoxListObject = <CheckBoxList textList={state.textList} />;
+  const CheckBoxListObject = (
+    <CheckBoxList
+      textList={state.textList}
+      modifyText={modifyText}
+      state={state}
+      setState={setState}
+    />
+  );
 
   return (
     <div className="ms-2 mt-2">
