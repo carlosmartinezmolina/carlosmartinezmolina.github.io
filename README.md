@@ -1,7 +1,8 @@
 # basic-task-list.
 TECHNICAL TEST
 
-Para esta prueba tecnica se crearon 2 repositorios uno para el backend en django(url) y el otro para el frontend(url) en react, ademas se hizo un deploy de una version del frontend sin backend a la cual se puede acceder aqui url
+For this technical test, 2 repositories were created, one for the backend in Django <a href="https://github.com/carlosmartinezmolina/djangoApiRest">Api Service</a> and the other for the frontend <a href="https://github.com/carlosmartinezmolina/carlosmartinezmolina.github.io">React Code</a> in react, a version of the frontend without a backend was also deployed, which can be accessed here <a href="https://carlosmartinezmolina.github.io/">Frontend version deployed</a>.
 
-En el archivo Task.Component.js se realizan llamdos a una api rest por lo que es necesario cambiar el url de los metodos getData() y postData() para poder acceder al url donde este levantado el servicio api.
-
+```
+In the Task.Component.js file, calls are made to a rest api, so it is necessary to change the url of the getData() and postData() methods to be able to access the url where the api service is deployed.
+```
