@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Task.component.scss";
 import {
   PlusSquare,
@@ -31,7 +31,41 @@ const Task = () => {
     displayWidth: size.width,
     imageSize: size.width >= 1230 ? "2%" : "8%",
     featherAdd: X,
+    id: 0,
+    focusAdd: false,
   });
+
+  const getData = async (url = "http://127.0.0.1:8000/task") => {
+    const res = await fetch(url, { method: "GET" }).then((response) =>
+      response.json()
+    );
+    return res;
+  };
+
+  const postData = async (data, url = "http://127.0.0.1:8000/task") => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
+    const result = await fetch(url, requestOptions).then((response) =>
+      response.json()
+    );
+    return result;
+  };
+
+  useEffect(() => {
+    (async () => {
+      const data = await getData();
+      if (data) {
+        setState({
+          ...state,
+          textList: data,
+          id: data.length,
+        });
+      }
+    })();
+  }, []);
 
   const writeClick = (event) => {
     if (!state.writeTask) {
@@ -39,6 +73,7 @@ const Task = () => {
         ...state,
         writeInput: !state.writeInput,
         writeTask: !state.writeTask,
+        focusAdd: !state.focusAdd,
       });
     }
   };
@@ -57,11 +92,16 @@ const Task = () => {
     });
   };
 
-  const buttonAdd = (event) => {
+  const buttonAdd = async (event) => {
     var temp = state.textList;
     temp.push(state.currentText);
     const input = document.getElementById("InputId");
     input.value = "";
+    var body = {
+      id: String(state.id),
+      string: String(state.currentText),
+    };
+    const response = await postData(body);
     setState({
       ...state,
       textList: temp,
@@ -105,7 +145,7 @@ const Task = () => {
       textList: temp,
       writeInput: true,
       writeTask: false,
-      currentText: "",
+      currentText: event.target.value,
       buttonOpacity: "0.6",
       buttonAcceptName: "Add",
       buttonDisabledProp: false,
@@ -274,6 +314,8 @@ const Task = () => {
       modifyText={modifyText}
       state={state}
       setState={setState}
+      postData={postData}
+      focusAdd={state.focusAdd}
     />
   );
 

@@ -15,12 +15,20 @@ import {
 } from "react-feather";
 import Button from "../Button/Button.component";
 
-const CheckBoxList = ({ textList, modifyText, state, setState }) => {
+const CheckBoxList = ({
+  textList,
+  modifyText,
+  state,
+  setState,
+  postData,
+  focusAdd,
+}) => {
   const [list, setList] = useState({
     showList: [],
     focusId: null,
     modificationText: "",
   });
+
   useEffect(() => {
     (async () => {
       var temp = [];
@@ -34,10 +42,23 @@ const CheckBoxList = ({ textList, modifyText, state, setState }) => {
     })();
   }, [textList]);
 
+  useEffect(() => {
+    (async () => {
+      const temp = list.showList;
+      for (var i = 0; i < temp.length; i++) {
+        temp[i] = false;
+      }
+      setList({
+        ...list,
+        showList: temp,
+        focusId: null,
+      });
+    })();
+  }, [focusAdd]);
+
   const buttonClick = (event) => {
     const temp = list.showList;
     temp[list.focusId] = false;
-    console.log("pepe");
     event.target.value = list.modificationText;
     modifyText(event, list.focusId);
     setList({
@@ -47,9 +68,15 @@ const CheckBoxList = ({ textList, modifyText, state, setState }) => {
     });
   };
 
-  const buttonAdd = (event) => {
+  const buttonAdd = async (event) => {
     const temp = list.showList;
     temp[list.focusId] = false;
+    console.log(list.focusId);
+    var body = {
+      id: String(list.focusId),
+      string: String(state.currentText),
+    };
+    const response = await postData(body);
     setList({
       ...list,
       showList: temp,
@@ -205,6 +232,15 @@ const CheckBoxList = ({ textList, modifyText, state, setState }) => {
       showList: temp,
       focusId: event.target.id,
       modificationText: textList[event.target.id],
+    });
+    setState({
+      ...state,
+      writeInput: true,
+      writeTask: false,
+      buttonOpacity: "0.6",
+      buttonAcceptName: "Ok",
+      buttonDisabledProp: true,
+      featherAdd: X,
     });
   };
 
